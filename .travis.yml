@@ -1,7 +1,6 @@
 language: python
   - "3.5"
 install:
-  - pip install --upgrade pip
   - cp conttrib/env-sample .env
   - pip install -q -r requirements.txt
 script:
