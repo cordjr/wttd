@@ -35,3 +35,5 @@ heroku config:set DEBUG=False
 #configura o email
 git push heroku master --force
 ```
+
+
