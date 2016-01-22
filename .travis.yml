@@ -2,6 +2,6 @@ language: python
   - "3.5"
 install:
   - cp conttrib/env-sample .env
-  - pip install -q -r requirements.txt
+  - pip install -q --user -r requirements.txt
 script:
   - python manage test
