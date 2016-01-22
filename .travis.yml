@@ -4,4 +4,4 @@ install:
   - cp conttrib/env-sample .env
   - pip install --user -r requirements.txt
 script:
-  - python manage test
+  - python manage.py test
