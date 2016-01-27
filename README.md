@@ -1,6 +1,8 @@
 # Eventex
 
 Sistema de eventos encomendado pela morena 
+[![Build Status](https://travis-ci.org/cordjr/wttd.svg?branch=master)](https://travis-ci.org/cordjr/wttd)
+
 
 ##Como desenvolver
 1. clone o repositório 

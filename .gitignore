@@ -128,3 +128,5 @@ docs/_build/
 # PyBuilder
 target/
 staticfiles
+
+.ipynb_checkpoints/
