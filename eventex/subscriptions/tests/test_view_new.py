@@ -2,13 +2,14 @@ import unittest
 
 from django.test import TestCase
 from django.core import mail
+from django.shortcuts import resolve_url as r
 from eventex.subscriptions.forms import SubscriptionForm
 from eventex.subscriptions.models import Subscription
 
 
-class SubscribeGet(TestCase):
+class SubscriptonNewGet(TestCase):
     def setUp(self):
-        self.resp = self.client.get("/inscricao/")
+        self.resp = self.client.get(r('subscriptions:new'))
 
     def test_get(self):
         """ Get /inscricao shoud return code 200         """
@@ -48,17 +49,17 @@ class SubscribeGet(TestCase):
         self.assertSequenceEqual(['name', 'cpf', 'email', 'phone'], list(form.fields))
 
 
-class SubscribePostValid(TestCase):
+class SubscriptonNewPostValid(TestCase):
     def setUp(self):
         data = dict(name="Henrique Bastos", cpf="12345678901",
                     email="henrique@bastos.net", phone="98-12345-798901")
 
-        self.resp = self.client.post("/inscricao/", data)
+        self.resp = self.client.post(r('subscriptions:new'), data)
 
     def test_post(self):
         """Valid should redirect to '/inscricao'"""
         self.assertEqual(302, self.resp.status_code)
-        self.assertRedirects(self.resp, '/inscricao/1/')
+        self.assertRedirects(self.resp, r('subscriptions:detail', 1))
 
     def test_send_subscribe_email(self):
         """should send an subscribe email"""
@@ -68,14 +69,13 @@ class SubscribePostValid(TestCase):
         self.assertTrue(Subscription.objects.exists())
 
 
-class SubscribedPostInvalid(TestCase):
+class SubscriptonNewPostInvalid(TestCase):
     def setUp(self):
-        self.resp = self.client.post("/inscricao/", {})
+        self.resp = self.client.post(r('subscriptions:new'), {})
 
     def test_post(self):
         ''' verifica '''
         self.assertEqual(200, self.resp.status_code)
-
 
     def test_use_template(self):
         self.assertTemplateUsed(self.resp, 'subscriptions/subscription_form.html')
@@ -90,6 +90,3 @@ class SubscribedPostInvalid(TestCase):
 
     def test_not_save_subscription(self):
         self.assertFalse(Subscription.objects.exists())
-
-
-
